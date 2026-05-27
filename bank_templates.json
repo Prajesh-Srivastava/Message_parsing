@@ -1,0 +1,33 @@
+{
+  "version": 1,
+  "templates": [
+    {
+      "bankName": "HDFC",
+      "senderPattern": ".*HDFCBK.*",
+      "debitPattern": "(?i)spent\\s*(?:rs\\.?|inr|₹)\\s*([0-9,.]+)\\s*at\\s*([^.]+)",
+      "amountGroup": 1,
+      "merchantGroup": 2
+    },
+    {
+      "bankName": "ICICI",
+      "senderPattern": ".*ICICIB.*",
+      "debitPattern": "(?i)debited\\s*for\\s*(?:rs\\.?|inr|₹)\\s*([0-9,.]+).*?at\\s*([^;]+)",
+      "amountGroup": 1,
+      "merchantGroup": 2
+    },
+    {
+      "bankName": "SBI",
+      "senderPattern": ".*SBI.*",
+      "debitPattern": "(?i)processed\\s*for\\s*(?:rs\\.?|inr|₹)\\s*([0-9,.]+).*?to\\s*([^.]+)",
+      "amountGroup": 1,
+      "merchantGroup": 2
+    },
+    {
+      "bankName": "Axis",
+      "senderPattern": ".*AXISBK.*",
+      "debitPattern": "(?i)debited\\s*by\\s*(?:rs\\.?|inr|₹)\\s*([0-9,.]+).*?at\\s*([^.]+)",
+      "amountGroup": 1,
+      "merchantGroup": 2
+    }
+  ]
+}
