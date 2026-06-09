@@ -1,33 +1,587 @@
 {
-  "version": 1,
+  "version": 100,
   "templates": [
     {
-      "bankName": "HDFC",
-      "senderPattern": ".*HDFCBK.*",
-      "debitPattern": "(?i)spent\\s*(?:rs\\.?|inr|₹)\\s*([0-9,.]+)\\s*at\\s*([^.]+)",
+      "bankName": "ICICI Bank Card (precise)",
+      "senderPattern": "ICICI",
+      "debitPattern": "(?:inr|rs\\.?)\\s*([\\d,]+(?:\\.\\d{1,2})?)\\s+spent on .{0,30}?card\\s+[x*]*\\d+.*?\\bat\\s+([A-Za-z0-9 &._'\\-]{2,40}?)(?:\\.|\\s+avl|\\s+on\\b|$)",
       "amountGroup": 1,
       "merchantGroup": 2
     },
     {
-      "bankName": "ICICI",
-      "senderPattern": ".*ICICIB.*",
-      "debitPattern": "(?i)debited\\s*for\\s*(?:rs\\.?|inr|₹)\\s*([0-9,.]+).*?at\\s*([^;]+)",
+      "bankName": "State Bank of India UPI (precise)",
+      "senderPattern": "SBI",
+      "debitPattern": "a/c\\s*x*\\d+[-\\s]*debited by\\s*(?:rs\\.?|inr)\\s*([\\d,]+(?:\\.\\d{1,2})?).*?transfer to\\s+([A-Za-z0-9 &._'\\-]{2,40}?)\\s+ref",
       "amountGroup": 1,
       "merchantGroup": 2
     },
+
     {
-      "bankName": "SBI",
-      "senderPattern": ".*SBI.*",
-      "debitPattern": "(?i)processed\\s*for\\s*(?:rs\\.?|inr|₹)\\s*([0-9,.]+).*?to\\s*([^.]+)",
-      "amountGroup": 1,
-      "merchantGroup": 2
+      "bankName": "HDFC Bank",
+      "senderPattern": "HDFC",
+      "debitPattern": "(?:rs\\.?|inr|₹)\\s*([\\d,]+(?:\\.\\d{1,2})?)",
+      "amountGroup": 1
     },
     {
-      "bankName": "Axis",
-      "senderPattern": ".*AXISBK.*",
-      "debitPattern": "(?i)debited\\s*by\\s*(?:rs\\.?|inr|₹)\\s*([0-9,.]+).*?at\\s*([^.]+)",
-      "amountGroup": 1,
-      "merchantGroup": 2
+      "bankName": "ICICI Bank",
+      "senderPattern": "ICICI",
+      "debitPattern": "(?:rs\\.?|inr|₹)\\s*([\\d,]+(?:\\.\\d{1,2})?)",
+      "amountGroup": 1
+    },
+    {
+      "bankName": "State Bank of India",
+      "senderPattern": "SBI",
+      "debitPattern": "(?:rs\\.?|inr|₹)\\s*([\\d,]+(?:\\.\\d{1,2})?)",
+      "amountGroup": 1
+    },
+    {
+      "bankName": "Axis Bank",
+      "senderPattern": "AXIS|UTIB",
+      "debitPattern": "(?:rs\\.?|inr|₹)\\s*([\\d,]+(?:\\.\\d{1,2})?)",
+      "amountGroup": 1
+    },
+    {
+      "bankName": "Kotak Mahindra Bank",
+      "senderPattern": "KOTAK|KMBL",
+      "debitPattern": "(?:rs\\.?|inr|₹)\\s*([\\d,]+(?:\\.\\d{1,2})?)",
+      "amountGroup": 1
+    },
+    {
+      "bankName": "Yes Bank",
+      "senderPattern": "YESBK|YESBNK",
+      "debitPattern": "(?:rs\\.?|inr|₹)\\s*([\\d,]+(?:\\.\\d{1,2})?)",
+      "amountGroup": 1
+    },
+    {
+      "bankName": "Punjab National Bank",
+      "senderPattern": "PNBSMS|PNBINB|PNB",
+      "debitPattern": "(?:rs\\.?|inr|₹)\\s*([\\d,]+(?:\\.\\d{1,2})?)",
+      "amountGroup": 1
+    },
+    {
+      "bankName": "Bank of Baroda",
+      "senderPattern": "BOB|BARODA",
+      "debitPattern": "(?:rs\\.?|inr|₹)\\s*([\\d,]+(?:\\.\\d{1,2})?)",
+      "amountGroup": 1
+    },
+    {
+      "bankName": "Canara Bank",
+      "senderPattern": "CAN(BNK|ARA|BK)",
+      "debitPattern": "(?:rs\\.?|inr|₹)\\s*([\\d,]+(?:\\.\\d{1,2})?)",
+      "amountGroup": 1
+    },
+    {
+      "bankName": "Union Bank of India",
+      "senderPattern": "UNIONB|UNBI|UBOI",
+      "debitPattern": "(?:rs\\.?|inr|₹)\\s*([\\d,]+(?:\\.\\d{1,2})?)",
+      "amountGroup": 1
+    },
+    {
+      "bankName": "IDFC First Bank",
+      "senderPattern": "IDFC",
+      "debitPattern": "(?:rs\\.?|inr|₹)\\s*([\\d,]+(?:\\.\\d{1,2})?)",
+      "amountGroup": 1
+    },
+    {
+      "bankName": "IndusInd Bank",
+      "senderPattern": "INDUSB|INDUSND",
+      "debitPattern": "(?:rs\\.?|inr|₹)\\s*([\\d,]+(?:\\.\\d{1,2})?)",
+      "amountGroup": 1
+    },
+    {
+      "bankName": "AU Small Finance Bank",
+      "senderPattern": "AUBANK|AUSFB",
+      "debitPattern": "(?:rs\\.?|inr|₹)\\s*([\\d,]+(?:\\.\\d{1,2})?)",
+      "amountGroup": 1
+    },
+    {
+      "bankName": "Federal Bank",
+      "senderPattern": "FEDBNK|FEDERAL",
+      "debitPattern": "(?:rs\\.?|inr|₹)\\s*([\\d,]+(?:\\.\\d{1,2})?)",
+      "amountGroup": 1
+    },
+    {
+      "bankName": "RBL Bank",
+      "senderPattern": "RBLBNK|RBL",
+      "debitPattern": "(?:rs\\.?|inr|₹)\\s*([\\d,]+(?:\\.\\d{1,2})?)",
+      "amountGroup": 1
+    },
+    {
+      "bankName": "IDBI Bank",
+      "senderPattern": "IDBI",
+      "debitPattern": "(?:rs\\.?|inr|₹)\\s*([\\d,]+(?:\\.\\d{1,2})?)",
+      "amountGroup": 1
+    },
+    {
+      "bankName": "Bank of India",
+      "senderPattern": "BOIIND|BOIND",
+      "debitPattern": "(?:rs\\.?|inr|₹)\\s*([\\d,]+(?:\\.\\d{1,2})?)",
+      "amountGroup": 1
+    },
+    {
+      "bankName": "Central Bank of India",
+      "senderPattern": "CENTBK|CBIN",
+      "debitPattern": "(?:rs\\.?|inr|₹)\\s*([\\d,]+(?:\\.\\d{1,2})?)",
+      "amountGroup": 1
+    },
+    {
+      "bankName": "Indian Bank",
+      "senderPattern": "INDBNK|ALBIND",
+      "debitPattern": "(?:rs\\.?|inr|₹)\\s*([\\d,]+(?:\\.\\d{1,2})?)",
+      "amountGroup": 1
+    },
+    {
+      "bankName": "Indian Overseas Bank",
+      "senderPattern": "IOBCHN|IOBANK",
+      "debitPattern": "(?:rs\\.?|inr|₹)\\s*([\\d,]+(?:\\.\\d{1,2})?)",
+      "amountGroup": 1
+    },
+    {
+      "bankName": "DBS Bank India",
+      "senderPattern": "DBS",
+      "debitPattern": "(?:rs\\.?|inr|₹)\\s*([\\d,]+(?:\\.\\d{1,2})?)",
+      "amountGroup": 1
+    },
+    {
+      "bankName": "HSBC India",
+      "senderPattern": "HSBC",
+      "debitPattern": "(?:rs\\.?|inr|₹)\\s*([\\d,]+(?:\\.\\d{1,2})?)",
+      "amountGroup": 1
+    },
+    {
+      "bankName": "Standard Chartered India",
+      "senderPattern": "SCBANK|STANCH|SCBL",
+      "debitPattern": "(?:rs\\.?|inr|₹)\\s*([\\d,]+(?:\\.\\d{1,2})?)",
+      "amountGroup": 1
+    },
+
+    {
+      "bankName": "Paytm",
+      "senderPattern": "PYTM|PAYTM|PPBL",
+      "debitPattern": "(?:rs\\.?|inr|₹)\\s*([\\d,]+(?:\\.\\d{1,2})?)",
+      "amountGroup": 1
+    },
+    {
+      "bankName": "PhonePe",
+      "senderPattern": "PHONPE|PHNPE|PHONEPE",
+      "debitPattern": "(?:rs\\.?|inr|₹)\\s*([\\d,]+(?:\\.\\d{1,2})?)",
+      "amountGroup": 1
+    },
+    {
+      "bankName": "Amazon Pay",
+      "senderPattern": "AMZN|AMAZON",
+      "debitPattern": "(?:rs\\.?|inr|₹)\\s*([\\d,]+(?:\\.\\d{1,2})?)",
+      "amountGroup": 1
+    },
+    {
+      "bankName": "MobiKwik",
+      "senderPattern": "MBK|MOBIKW",
+      "debitPattern": "(?:rs\\.?|inr|₹)\\s*([\\d,]+(?:\\.\\d{1,2})?)",
+      "amountGroup": 1
+    },
+    {
+      "bankName": "SBI Card",
+      "senderPattern": "SBICRD|SBICARD",
+      "debitPattern": "(?:rs\\.?|inr|₹)\\s*([\\d,]+(?:\\.\\d{1,2})?)",
+      "amountGroup": 1
+    },
+    {
+      "bankName": "American Express India",
+      "senderPattern": "AMEX|AMERICANEXP",
+      "debitPattern": "(?:rs\\.?|inr|₹)\\s*([\\d,]+(?:\\.\\d{1,2})?)",
+      "amountGroup": 1
+    },
+
+    {
+      "bankName": "Chase (US)",
+      "senderPattern": "CHASE",
+      "debitPattern": "(?:usd|\\$)\\s*([\\d,]+(?:\\.\\d{1,2})?)",
+      "amountGroup": 1
+    },
+    {
+      "bankName": "Bank of America (US)",
+      "senderPattern": "BOFA|BANKOFAMERICA|BKOFAM",
+      "debitPattern": "(?:usd|\\$)\\s*([\\d,]+(?:\\.\\d{1,2})?)",
+      "amountGroup": 1
+    },
+    {
+      "bankName": "Wells Fargo (US)",
+      "senderPattern": "WELLSFARGO|WELLS",
+      "debitPattern": "(?:usd|\\$)\\s*([\\d,]+(?:\\.\\d{1,2})?)",
+      "amountGroup": 1
+    },
+    {
+      "bankName": "Citi (US)",
+      "senderPattern": "CITI",
+      "debitPattern": "(?:usd|\\$)\\s*([\\d,]+(?:\\.\\d{1,2})?)",
+      "amountGroup": 1
+    },
+    {
+      "bankName": "Capital One (US)",
+      "senderPattern": "CAPITALONE|CAPONE",
+      "debitPattern": "(?:usd|\\$)\\s*([\\d,]+(?:\\.\\d{1,2})?)",
+      "amountGroup": 1
+    },
+    {
+      "bankName": "US Bank",
+      "senderPattern": "USBANK",
+      "debitPattern": "(?:usd|\\$)\\s*([\\d,]+(?:\\.\\d{1,2})?)",
+      "amountGroup": 1
+    },
+    {
+      "bankName": "PNC Bank (US)",
+      "senderPattern": "PNC",
+      "debitPattern": "(?:usd|\\$)\\s*([\\d,]+(?:\\.\\d{1,2})?)",
+      "amountGroup": 1
+    },
+    {
+      "bankName": "Discover (US)",
+      "senderPattern": "DISCOVER",
+      "debitPattern": "(?:usd|\\$)\\s*([\\d,]+(?:\\.\\d{1,2})?)",
+      "amountGroup": 1
+    },
+
+    {
+      "bankName": "Barclays (UK)",
+      "senderPattern": "BARCLAYS",
+      "debitPattern": "(?:gbp|£)\\s*([\\d,]+(?:\\.\\d{1,2})?)",
+      "amountGroup": 1
+    },
+    {
+      "bankName": "HSBC (UK)",
+      "senderPattern": "HSBC",
+      "debitPattern": "(?:gbp|£)\\s*([\\d,]+(?:\\.\\d{1,2})?)",
+      "amountGroup": 1
+    },
+    {
+      "bankName": "Lloyds (UK)",
+      "senderPattern": "LLOYDS",
+      "debitPattern": "(?:gbp|£)\\s*([\\d,]+(?:\\.\\d{1,2})?)",
+      "amountGroup": 1
+    },
+    {
+      "bankName": "NatWest (UK)",
+      "senderPattern": "NATWEST",
+      "debitPattern": "(?:gbp|£)\\s*([\\d,]+(?:\\.\\d{1,2})?)",
+      "amountGroup": 1
+    },
+    {
+      "bankName": "Santander (UK)",
+      "senderPattern": "SANTANDER",
+      "debitPattern": "(?:gbp|£)\\s*([\\d,]+(?:\\.\\d{1,2})?)",
+      "amountGroup": 1
+    },
+    {
+      "bankName": "Monzo (UK)",
+      "senderPattern": "MONZO",
+      "debitPattern": "(?:gbp|£)\\s*([\\d,]+(?:\\.\\d{1,2})?)",
+      "amountGroup": 1
+    },
+    {
+      "bankName": "Revolut",
+      "senderPattern": "REVOLUT",
+      "debitPattern": "(?:gbp|£|eur|€|usd|\\$)\\s*([\\d,]+(?:\\.\\d{1,2})?)",
+      "amountGroup": 1
+    },
+    {
+      "bankName": "Starling (UK)",
+      "senderPattern": "STARLING",
+      "debitPattern": "(?:gbp|£)\\s*([\\d,]+(?:\\.\\d{1,2})?)",
+      "amountGroup": 1
+    },
+
+    {
+      "bankName": "Emirates NBD (UAE)",
+      "senderPattern": "ENBD|EMIRATESNBD",
+      "debitPattern": "(?:aed|dhs?)\\s*([\\d,]+(?:\\.\\d{1,2})?)",
+      "amountGroup": 1
+    },
+    {
+      "bankName": "First Abu Dhabi Bank (UAE)",
+      "senderPattern": "FAB",
+      "debitPattern": "(?:aed|dhs?)\\s*([\\d,]+(?:\\.\\d{1,2})?)",
+      "amountGroup": 1
+    },
+    {
+      "bankName": "ADCB (UAE)",
+      "senderPattern": "ADCB",
+      "debitPattern": "(?:aed|dhs?)\\s*([\\d,]+(?:\\.\\d{1,2})?)",
+      "amountGroup": 1
+    },
+    {
+      "bankName": "Mashreq (UAE)",
+      "senderPattern": "MASHREQ",
+      "debitPattern": "(?:aed|dhs?)\\s*([\\d,]+(?:\\.\\d{1,2})?)",
+      "amountGroup": 1
+    },
+    {
+      "bankName": "Dubai Islamic Bank (UAE)",
+      "senderPattern": "DIB",
+      "debitPattern": "(?:aed|dhs?)\\s*([\\d,]+(?:\\.\\d{1,2})?)",
+      "amountGroup": 1
+    },
+
+    {
+      "bankName": "DBS (Singapore)",
+      "senderPattern": "DBS",
+      "debitPattern": "(?:sgd|s\\$)\\s*([\\d,]+(?:\\.\\d{1,2})?)",
+      "amountGroup": 1
+    },
+    {
+      "bankName": "OCBC (Singapore)",
+      "senderPattern": "OCBC",
+      "debitPattern": "(?:sgd|s\\$)\\s*([\\d,]+(?:\\.\\d{1,2})?)",
+      "amountGroup": 1
+    },
+    {
+      "bankName": "UOB (Singapore)",
+      "senderPattern": "UOB",
+      "debitPattern": "(?:sgd|s\\$)\\s*([\\d,]+(?:\\.\\d{1,2})?)",
+      "amountGroup": 1
+    },
+
+    {
+      "bankName": "Commonwealth Bank (Australia)",
+      "senderPattern": "COMMBANK|CBA",
+      "debitPattern": "(?:aud|a\\$|\\$)\\s*([\\d,]+(?:\\.\\d{1,2})?)",
+      "amountGroup": 1
+    },
+    {
+      "bankName": "ANZ (Australia)",
+      "senderPattern": "ANZ",
+      "debitPattern": "(?:aud|a\\$|\\$)\\s*([\\d,]+(?:\\.\\d{1,2})?)",
+      "amountGroup": 1
+    },
+    {
+      "bankName": "Westpac (Australia)",
+      "senderPattern": "WESTPAC",
+      "debitPattern": "(?:aud|a\\$|\\$)\\s*([\\d,]+(?:\\.\\d{1,2})?)",
+      "amountGroup": 1
+    },
+    {
+      "bankName": "NAB (Australia)",
+      "senderPattern": "NAB",
+      "debitPattern": "(?:aud|a\\$|\\$)\\s*([\\d,]+(?:\\.\\d{1,2})?)",
+      "amountGroup": 1
+    },
+
+    {
+      "bankName": "RBC (Canada)",
+      "senderPattern": "RBC|ROYALBANK",
+      "debitPattern": "(?:cad|c\\$|\\$)\\s*([\\d,]+(?:\\.\\d{1,2})?)",
+      "amountGroup": 1
+    },
+    {
+      "bankName": "TD (Canada)",
+      "senderPattern": "TDBANK",
+      "debitPattern": "(?:cad|c\\$|\\$)\\s*([\\d,]+(?:\\.\\d{1,2})?)",
+      "amountGroup": 1
+    },
+    {
+      "bankName": "Scotiabank (Canada)",
+      "senderPattern": "SCOTIA",
+      "debitPattern": "(?:cad|c\\$|\\$)\\s*([\\d,]+(?:\\.\\d{1,2})?)",
+      "amountGroup": 1
+    },
+    {
+      "bankName": "BMO (Canada)",
+      "senderPattern": "BMO",
+      "debitPattern": "(?:cad|c\\$|\\$)\\s*([\\d,]+(?:\\.\\d{1,2})?)",
+      "amountGroup": 1
+    },
+
+    {
+      "bankName": "Deutsche Bank (Europe)",
+      "senderPattern": "DEUTSCHE",
+      "debitPattern": "(?:eur|€)\\s*([\\d,]+(?:\\.\\d{1,2})?)",
+      "amountGroup": 1
+    },
+    {
+      "bankName": "BNP Paribas (Europe)",
+      "senderPattern": "BNP",
+      "debitPattern": "(?:eur|€)\\s*([\\d,]+(?:\\.\\d{1,2})?)",
+      "amountGroup": 1
+    },
+    {
+      "bankName": "ING (Europe)",
+      "senderPattern": "ING",
+      "debitPattern": "(?:eur|€)\\s*([\\d,]+(?:\\.\\d{1,2})?)",
+      "amountGroup": 1
+    },
+    {
+      "bankName": "N26 (Europe)",
+      "senderPattern": "N26",
+      "debitPattern": "(?:eur|€)\\s*([\\d,]+(?:\\.\\d{1,2})?)",
+      "amountGroup": 1
+    },
+
+    {
+      "bankName": "Global USD (catch-all)",
+      "senderPattern": ".*",
+      "debitPattern": "(?:usd|\\$)\\s*([\\d,]+(?:\\.\\d{1,2})?)",
+      "amountGroup": 1
+    },
+    {
+      "bankName": "Global GBP (catch-all)",
+      "senderPattern": ".*",
+      "debitPattern": "(?:gbp|£)\\s*([\\d,]+(?:\\.\\d{1,2})?)",
+      "amountGroup": 1
+    },
+    {
+      "bankName": "Global EUR (catch-all)",
+      "senderPattern": ".*",
+      "debitPattern": "(?:eur|€)\\s*([\\d,]+(?:\\.\\d{1,2})?)",
+      "amountGroup": 1
+    },
+    {
+      "bankName": "Global AED (catch-all)",
+      "senderPattern": ".*",
+      "debitPattern": "(?:aed|dhs?)\\s*([\\d,]+(?:\\.\\d{1,2})?)",
+      "amountGroup": 1
+    },
+    {
+      "bankName": "Global SGD (catch-all)",
+      "senderPattern": ".*",
+      "debitPattern": "(?:sgd|s\\$)\\s*([\\d,]+(?:\\.\\d{1,2})?)",
+      "amountGroup": 1
+    },
+    {
+      "bankName": "Global THB (catch-all)",
+      "senderPattern": ".*",
+      "debitPattern": "(?:thb|฿)\\s*([\\d,]+(?:\\.\\d{1,2})?)",
+      "amountGroup": 1
+    },
+    {
+      "bankName": "Global PHP (catch-all)",
+      "senderPattern": ".*",
+      "debitPattern": "(?:php|₱)\\s*([\\d,]+(?:\\.\\d{1,2})?)",
+      "amountGroup": 1
+    },
+    {
+      "bankName": "Global JPY (catch-all)",
+      "senderPattern": ".*",
+      "debitPattern": "(?:jpy|¥)\\s*([\\d,]+(?:\\.\\d{1,2})?)",
+      "amountGroup": 1
+    },
+    {
+      "bankName": "Global CNY (catch-all)",
+      "senderPattern": ".*",
+      "debitPattern": "(?:cny|rmb)\\s*([\\d,]+(?:\\.\\d{1,2})?)",
+      "amountGroup": 1
+    },
+    {
+      "bankName": "Global HKD (catch-all)",
+      "senderPattern": ".*",
+      "debitPattern": "(?:hkd|hk\\$)\\s*([\\d,]+(?:\\.\\d{1,2})?)",
+      "amountGroup": 1
+    },
+    {
+      "bankName": "Global NZD (catch-all)",
+      "senderPattern": ".*",
+      "debitPattern": "(?:nzd|nz\\$)\\s*([\\d,]+(?:\\.\\d{1,2})?)",
+      "amountGroup": 1
+    },
+    {
+      "bankName": "Global KRW (catch-all)",
+      "senderPattern": ".*",
+      "debitPattern": "(?:krw|₩)\\s*([\\d,]+(?:\\.\\d{1,2})?)",
+      "amountGroup": 1
+    },
+    {
+      "bankName": "Global VND (catch-all)",
+      "senderPattern": ".*",
+      "debitPattern": "(?:vnd|₫)\\s*([\\d,]+(?:\\.\\d{1,2})?)",
+      "amountGroup": 1
+    },
+    {
+      "bankName": "Global IDR (catch-all)",
+      "senderPattern": ".*",
+      "debitPattern": "(?:idr|rp)\\s*([\\d,]+(?:\\.\\d{1,2})?)",
+      "amountGroup": 1
+    },
+    {
+      "bankName": "Global MYR (catch-all)",
+      "senderPattern": ".*",
+      "debitPattern": "(?:myr)\\s*([\\d,]+(?:\\.\\d{1,2})?)",
+      "amountGroup": 1
+    },
+    {
+      "bankName": "Global ZAR (catch-all)",
+      "senderPattern": ".*",
+      "debitPattern": "(?:zar)\\s*([\\d,]+(?:\\.\\d{1,2})?)",
+      "amountGroup": 1
+    },
+    {
+      "bankName": "Global BRL (catch-all)",
+      "senderPattern": ".*",
+      "debitPattern": "(?:brl|r\\$)\\s*([\\d,]+(?:\\.\\d{1,2})?)",
+      "amountGroup": 1
+    },
+    {
+      "bankName": "Global MXN (catch-all)",
+      "senderPattern": ".*",
+      "debitPattern": "(?:mxn)\\s*([\\d,]+(?:\\.\\d{1,2})?)",
+      "amountGroup": 1
+    },
+    {
+      "bankName": "Global TRY (catch-all)",
+      "senderPattern": ".*",
+      "debitPattern": "(?:try|₺)\\s*([\\d,]+(?:\\.\\d{1,2})?)",
+      "amountGroup": 1
+    },
+    {
+      "bankName": "Global SAR (catch-all)",
+      "senderPattern": ".*",
+      "debitPattern": "(?:sar)\\s*([\\d,]+(?:\\.\\d{1,2})?)",
+      "amountGroup": 1
+    },
+    {
+      "bankName": "Global QAR (catch-all)",
+      "senderPattern": ".*",
+      "debitPattern": "(?:qar)\\s*([\\d,]+(?:\\.\\d{1,2})?)",
+      "amountGroup": 1
+    },
+    {
+      "bankName": "Global KWD (catch-all)",
+      "senderPattern": ".*",
+      "debitPattern": "(?:kwd)\\s*([\\d,]+(?:\\.\\d{1,3})?)",
+      "amountGroup": 1
+    },
+    {
+      "bankName": "Global BHD (catch-all)",
+      "senderPattern": ".*",
+      "debitPattern": "(?:bhd)\\s*([\\d,]+(?:\\.\\d{1,3})?)",
+      "amountGroup": 1
+    },
+    {
+      "bankName": "Global OMR (catch-all)",
+      "senderPattern": ".*",
+      "debitPattern": "(?:omr)\\s*([\\d,]+(?:\\.\\d{1,3})?)",
+      "amountGroup": 1
+    },
+    {
+      "bankName": "Global NPR (catch-all)",
+      "senderPattern": ".*",
+      "debitPattern": "(?:npr)\\s*([\\d,]+(?:\\.\\d{1,2})?)",
+      "amountGroup": 1
+    },
+    {
+      "bankName": "Global PKR (catch-all)",
+      "senderPattern": ".*",
+      "debitPattern": "(?:pkr)\\s*([\\d,]+(?:\\.\\d{1,2})?)",
+      "amountGroup": 1
+    },
+    {
+      "bankName": "Global LKR (catch-all)",
+      "senderPattern": ".*",
+      "debitPattern": "(?:lkr)\\s*([\\d,]+(?:\\.\\d{1,2})?)",
+      "amountGroup": 1
+    },
+    {
+      "bankName": "Global BDT (catch-all)",
+      "senderPattern": ".*",
+      "debitPattern": "(?:bdt)\\s*([\\d,]+(?:\\.\\d{1,2})?)",
+      "amountGroup": 1
     }
   ]
 }
